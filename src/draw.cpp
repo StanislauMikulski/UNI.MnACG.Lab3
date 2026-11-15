@@ -64,6 +64,44 @@ void draw_line(SDL_Surface *s, double x1, double y1, double x2, double y2, int c
   }
 }
 
-void draw(SDL_Surface *s){
-  vf
+
+void draw(SDL_Surface *s)
+{
+    if (asked == false)
+    {
+        std::cout << "Enter window radius ";
+        std::cin >> R;
+        asked = true;
+    }
+
+    int cx = SCREEN_WIDTH / 2;
+    int cy = SCREEN_HEIGHT / 2;
+
+    t_anim = t_anim + 0.02;
+    double sx = cx + 250 * sin(t_anim);
+    double sy = cy;
+    double angle = t_anim * 2;
+
+    double h = side / 2;
+
+    double px[4] = {-h, h, h, -h};
+    double py[4] = {-h, -h, h, h};
+
+    double vx[4];
+    double vy[4];
+    for (int i = 0; i < 4; i++)
+    {
+        vx[i] = sx + px[i] * cos(angle) - py[i] * sin(angle);
+        vy[i] = sy + px[i] * sin(angle) + py[i] * cos(angle);
+    }
+
+    draw_circle(s, cx, cy, R);
+
+    for (int i = 0; i < 4; i++)
+    {
+        int next = i + 1;
+        if (next == 4)
+            next = 0;
+        draw_line(s, vx[i], vy[i], vx[next], vy[next], cx, cy, R);
+    }
 }
