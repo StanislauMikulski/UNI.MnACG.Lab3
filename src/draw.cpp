@@ -30,18 +30,18 @@ double t_anim = 0;
 bool asked = false;
 
 void pixel(SDL_Surface *s, int x, int y, Uint32 color){
-  if( x >= 0 && x < SCREEN_WIDTH && y >= 0 && y <= SCREEN_HEIGHT){
+  if( x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT){
     put_pixel32(s, x, y, color);
   }
 }
 
 void draw_circle(SDL_Surface *s, int cx, int cy, double r){
-  for(double a = 0; a < 6.2832, a += 0.002){
-    int x = cx + r * cos(a);
-    int y = cy + r * sin(a);
-
-    pixel(s,x,y, RGB32(255, 255, 255));
-  }
+    for (double a = 0; a < 6.2832; a = a + 0.002)
+    {
+        int x = cx + r * cos(a);
+        int y = cy + r * sin(a);
+        pixel(s, x, y, RGB32(255, 255, 255));
+    }
 }
 
 void draw_line(SDL_Surface *s, double x1, double y1, double x2, double y2, int cx, int cy, double r){
@@ -67,17 +67,12 @@ void draw_line(SDL_Surface *s, double x1, double y1, double x2, double y2, int c
 
 void draw(SDL_Surface *s)
 {
-    if (asked == false)
-    {
-        std::cout << "Enter window radius ";
-        std::cin >> R;
-        asked = true;
-    }
+    SDL_FillRect(s, NULL, 0);
 
     int cx = SCREEN_WIDTH / 2;
     int cy = SCREEN_HEIGHT / 2;
 
-    t_anim = t_anim + 0.02;
+    t_anim = t_anim + 0.00002;
     double sx = cx + 250 * sin(t_anim);
     double sy = cy;
     double angle = t_anim * 2;
