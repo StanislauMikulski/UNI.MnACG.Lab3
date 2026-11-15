@@ -72,7 +72,7 @@ void draw(SDL_Surface *s)
     int cx = SCREEN_WIDTH / 2;
     int cy = SCREEN_HEIGHT / 2;
 
-    t_anim = t_anim + 0.00002;
+    t_anim = t_anim + 0.0002;
     double sx = cx + 250 * sin(t_anim);
     double sy = cy;
     double angle = t_anim * 2;
